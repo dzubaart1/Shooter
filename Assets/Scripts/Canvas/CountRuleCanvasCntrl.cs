@@ -1,4 +1,3 @@
-using System;
 using Canvas;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,9 +11,10 @@ public class CountRuleCanvasCntrl : CanvasBase
     [SerializeField] private Text _countText;
 
     private int _count;
-    private float _timerCount = 0f;
+    private float _timerCount;
     private SignalBus _signalBus;
     private bool _isEndGame;
+    
     [Inject]
     public void Construct(SignalBus signalBus)
     {
@@ -42,7 +42,9 @@ public class CountRuleCanvasCntrl : CanvasBase
             if (_count >= _maxCount)
             {
                 _signalBus.Fire(new EndGameSignal());
-                _signalBus.Fire(new ToggleCanvasSignal(){CanvasId = CanvasId.EndGame});
+                var temp = new ToggleCanvasSignal();
+                temp.CanvasId = CanvasId.EndGame;
+                _signalBus.Fire(temp);
                 _isEndGame = true;
             }
             _countText.text = _count.ToString();

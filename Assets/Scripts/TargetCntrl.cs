@@ -16,10 +16,7 @@ public class TargetCntrl : MonoBehaviour
     }
     public void Hit(Color weaponColor)
     {
-        _signalBus.Fire(new UserShootSignal()
-        {
-            IsCorrectShoot = weaponColor.Compare(_trueColor)
-        });
+        _signalBus.Fire(new UserShootSignal() { IsCorrectShoot = weaponColor.Compare(_trueColor) });
         _signalBus.Fire(new UpdateColorSignal());
     }
 

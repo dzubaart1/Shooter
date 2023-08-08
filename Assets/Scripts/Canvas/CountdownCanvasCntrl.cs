@@ -10,6 +10,7 @@ namespace Canvas
         [SerializeField] private Text _timerText;
 
         private SignalBus _signalBus;
+        
         [Inject]
         public void Construct(SignalBus signalBus)
         {

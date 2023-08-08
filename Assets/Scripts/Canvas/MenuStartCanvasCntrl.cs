@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Canvas
 {
-    public class MenuStartCanvasCntrl : CanvasBase
+    public class MenuStartCanvasCntrl : MonoBehaviour
     {
         private MenuSettings _menuSettings;
     

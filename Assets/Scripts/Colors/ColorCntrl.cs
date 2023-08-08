@@ -20,11 +20,11 @@ public class ColorCntrl
         List<Color> colors = new List<Color>();
         for (float i = 0; i <= 1; i += 0.5f)
         {
-            for (float j = 0; j <= 1; j += 0.5f)
+            for (float j = 0; j <= 1; j += 1f)
             {
-                for (float k = 0; k <= 1; k += 0.5f)
+                for (float k = 0; k <= 1; k += 1f)
                 {
-                    colors.Add(new Color(i,j,k,1));
+                    colors.Add(new Color(i, j, k, 1));
                 }
             }
         }

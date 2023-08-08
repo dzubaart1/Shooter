@@ -6,6 +6,7 @@ public class RuleCntrl : MonoBehaviour
 {
     private MenuSettings _menuSettings;
     private SignalBus _signalBus;
+    
     [Inject]
     public void Construct(MenuSettings menuSettings, SignalBus signalBus)
     {

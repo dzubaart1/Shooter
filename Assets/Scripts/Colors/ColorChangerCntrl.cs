@@ -6,7 +6,6 @@ public class ColorChangerCntrl : MonoBehaviour
 {
     [SerializeField] private List<TargetCntrl> _targetCntrls;
     [SerializeField] private List<GunCntrl> _gunsCntrls;
-    [SerializeField] private Color _defaultColor;
     private SignalBus _signalBus;
     private ColorCntrl _colorCntrl;
     
@@ -14,11 +13,11 @@ public class ColorChangerCntrl : MonoBehaviour
     public void Construct(SignalBus signalBus)
     {
         _signalBus = signalBus;
-        _colorCntrl = new ColorCntrl();
     }
 
     private void Start()
     {
+        _colorCntrl = new ColorCntrl();
         _signalBus.Subscribe<UpdateColorSignal>(UpdateColors);
         _signalBus.Subscribe<StartGameSignal>(SetByStart);
         _signalBus.Subscribe<EndGameSignal>(SetByDefault);

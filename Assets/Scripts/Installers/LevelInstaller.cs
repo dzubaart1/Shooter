@@ -4,12 +4,9 @@ using Zenject;
 
 public class LevelInstaller : MonoInstaller
 {
-    [SerializeField] private GameObject _xrOrigin;
     [SerializeField] private Transform _spawnVector;
     public override void InstallBindings()
     {
-        Container.InstantiatePrefab(_xrOrigin, _spawnVector);
-        
         SignalBusInstaller.Install(Container);
         Container.DeclareSignal<UserShootSignal>();
         Container.DeclareSignal<UpdateColorSignal>();
