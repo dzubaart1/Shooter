@@ -21,8 +21,8 @@ public class TimeRuleCanvasCntrl : CanvasBase
     private void Start()
     {
         _timerCount = _secondsCount;
-        _timerText.text = _timerCount.ToString();
-        _countText.text = _count.ToString();
+        _timerText.text = "Time: " + _timerCount.ToString();
+        _countText.text = "Score: " + _count.ToString();
         _signalBus.Subscribe<UserShootSignal>(UpdateState);
     }
     public void UpdateState(UserShootSignal userShootSignal)
@@ -30,7 +30,7 @@ public class TimeRuleCanvasCntrl : CanvasBase
         if (userShootSignal.IsCorrectShoot)
         {
             _count++;
-            _countText.text = _count.ToString();
+            _countText.text = "Score: " + _count.ToString();
         }
     }
 
@@ -46,6 +46,6 @@ public class TimeRuleCanvasCntrl : CanvasBase
             _isEndGame = true;
         }
 
-        _timerText.text = Mathf.Round(_timerCount).ToString();
+        _timerText.text = "Time: " + Mathf.Round(_timerCount).ToString();
     }
 }

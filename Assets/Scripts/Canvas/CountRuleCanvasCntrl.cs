@@ -22,8 +22,8 @@ public class CountRuleCanvasCntrl : CanvasBase
     }
     private void Start()
     {
-        _stopWatchText.text = _timerCount.ToString("F2");
-        _countText.text = _count.ToString();
+        _stopWatchText.text = "Time: " + _timerCount.ToString("F2");
+        _countText.text = "Score: " + _count.ToString();
         _signalBus.Subscribe<UserShootSignal>(UpdateState);
     }
 
@@ -31,7 +31,7 @@ public class CountRuleCanvasCntrl : CanvasBase
     {
         if(_isEndGame) return;
         _timerCount += Time.deltaTime;
-        _stopWatchText.text = _timerCount.ToString("F2");
+        _stopWatchText.text = "Time: " + _timerCount.ToString("F2");
     }
 
     public void UpdateState(UserShootSignal userShootSignal)
@@ -47,7 +47,7 @@ public class CountRuleCanvasCntrl : CanvasBase
                 _signalBus.Fire(temp);
                 _isEndGame = true;
             }
-            _countText.text = _count.ToString();
+            _countText.text = "Score: " + _count.ToString();
         }
         else
         {
