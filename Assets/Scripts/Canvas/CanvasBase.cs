@@ -1,7 +1,9 @@
-using Canvas;
 using UnityEngine;
 
-public class CanvasBase : MonoBehaviour
+namespace Canvas
 {
-    public CanvasId Id;
+    public class CanvasBase : MonoBehaviour
+    {
+        public CanvasId Id;
+    }
 }

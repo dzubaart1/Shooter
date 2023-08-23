@@ -1,18 +1,18 @@
+using Globals;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Zenject;
 
 namespace Canvas
 {
     public class MenuStartCanvasCntrl : MonoBehaviour
     {
-        private MenuSettings _menuSettings;
-    
-        [Inject]
-        public void Construct(MenuSettings menuSettings)
+        private MenuSettings _menuSettings
+;
+        private void Start()
         {
-            _menuSettings = menuSettings;
+            _menuSettings = GameplayManager.Instance().GetMenuSettings();
         }
+
         public void OnClickTimeRule()
         {
             _menuSettings.RuleType = RuleType.TimerRule;

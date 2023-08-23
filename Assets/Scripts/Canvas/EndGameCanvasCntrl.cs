@@ -1,9 +1,12 @@
 using UnityEngine.SceneManagement;
 
-public class EndGameCanvasCntrl : CanvasBase
+namespace Canvas
 {
-    public void ReloadGame()
+    public class EndGameCanvasCntrl : CanvasBase
     {
-        SceneManager.LoadScene("MenuScene2");
+        public void ReloadGame()
+        {
+            SceneManager.LoadScene("MenuScene");
+        }
     }
 }

@@ -1,30 +1,25 @@
 ﻿using System.Collections.Generic;
+using Globals;
 using UnityEngine;
-using Zenject;
 
 namespace Canvas
 {
     public class ToggleCanvasCntrl : MonoBehaviour
     {
         [SerializeField] private List<CanvasBase> _canvasList;
-        private SignalBus _signalBus;
-        
-        [Inject]
-        public void Construct(SignalBus signalBus)
-        {
-            _signalBus = signalBus;
-        }
 
         private void Start()
         {
-            _signalBus.Subscribe<ToggleCanvasSignal>(ShowCanvas);
+            GameplayManager.Instance().OnToggleCanvasSignal.AddListener(ToggleCanvas);
         }
 
-        private void ShowCanvas(ToggleCanvasSignal showCanvasSignal)
+        private void ToggleCanvas(CanvasId canvasId)
         {
-            foreach (var canvas in _canvasList)
+            var index = 0;
+            for (; index < _canvasList.Count; index++)
             {
-                if (canvas.Id.Equals(showCanvasSignal.CanvasId))
+                var canvas = _canvasList[index];
+                if (canvas.Id.Equals(canvasId))
                 {
                     canvas.gameObject.SetActive(!canvas.gameObject.activeSelf);
                 }

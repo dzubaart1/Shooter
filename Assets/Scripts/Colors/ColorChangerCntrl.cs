@@ -1,62 +1,59 @@
 using System.Collections.Generic;
+using Cntrls;
+using Globals;
 using UnityEngine;
-using Zenject;
 
-public class ColorChangerCntrl : MonoBehaviour
+namespace Colors
 {
-    [SerializeField] private List<TargetCntrl> _targetCntrls;
-    [SerializeField] private List<GunCntrl> _gunsCntrls;
-    private SignalBus _signalBus;
-    private ColorCntrl _colorCntrl;
+    public class ColorChangerCntrl : MonoBehaviour
+    {
+        [SerializeField] private List<TargetCntrl> _targetCntrls;
+        [SerializeField] private List<GunCntrl> _gunsCntrls;
+        private ColorCntrl _colorCntrl;
     
-    [Inject]
-    public void Construct(SignalBus signalBus)
-    {
-        _signalBus = signalBus;
-    }
-
-    private void Start()
-    {
-        _colorCntrl = new ColorCntrl();
-        _signalBus.Subscribe<UpdateColorSignal>(UpdateColors);
-        _signalBus.Subscribe<StartGameSignal>(SetByStart);
-        _signalBus.Subscribe<EndGameSignal>(SetByDefault);
-    }
-
-    public void UpdateColors()
-    {
-        _colorCntrl.ShuffleColors();
-        foreach (var target in _targetCntrls)
+        private void Start()
         {
-            target.ChangeColor(_colorCntrl.GetNextColor());
+            _colorCntrl = new ColorCntrl();
+            GameplayManager.Instance().OnUpdateColorSignal.AddListener(UpdateColors);
+            GameplayManager.Instance().OnStartGameSignal.AddListener(SetColorsByStart);
+            GameplayManager.Instance().OnEndGameSignal.AddListener(SetColorsByDefault);
         }
 
-        foreach (var gun in _gunsCntrls)
+        private void UpdateColors()
         {
-            gun.ChangeColor(_colorCntrl.GetRandomColor());
-        }
-    }
+            _colorCntrl.ShuffleColors();
+            foreach (var target in _targetCntrls)
+            {
+                target.ChangeColor(_colorCntrl.GetNextColor());
+            }
 
-    public void SetByDefault()
-    {
-        foreach (var gun in _gunsCntrls)
-        {
-            gun.gameObject.SetActive(false);
-        }
-    }
-
-    public void SetByStart()
-    {
-        _colorCntrl.ShuffleColors();
-        foreach (var target in _targetCntrls)
-        {
-            target.ChangeColor(_colorCntrl.GetNextColor());
+            foreach (var gun in _gunsCntrls)
+            {
+                gun.ChangeColor(_colorCntrl.GetRandomColor());
+            }
         }
 
-        foreach (var gun in _gunsCntrls)
+        private void SetColorsByDefault()
         {
-            gun.ChangeColor(_colorCntrl.GetRandomColor());
-            gun.gameObject.SetActive(true);
+            foreach (var gun in _gunsCntrls)
+            {
+                gun.gameObject.SetActive(false);
+            }
+        }
+
+        private void SetColorsByStart()
+        {
+            _colorCntrl.ShuffleColors();
+            foreach (var target in _targetCntrls)
+            {
+                target.ChangeColor(_colorCntrl.GetNextColor());
+            }
+
+            foreach (var gun in _gunsCntrls)
+            {
+                gun.ChangeColor(_colorCntrl.GetRandomColor());
+                gun.gameObject.SetActive(true);
+            }
         }
     }
 }

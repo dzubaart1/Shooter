@@ -1,36 +1,29 @@
 using System.Collections;
+using Globals;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
 namespace Canvas
 {
     public class CountdownCanvasCntrl : CanvasBase
     {
+        [SerializeField] private int _secondsCount;
         [SerializeField] private Text _timerText;
 
-        private SignalBus _signalBus;
-        
-        [Inject]
-        public void Construct(SignalBus signalBus)
+        private void Start()
         {
-            _signalBus = signalBus;
-        }
-
-        void Start()
-        {
-            _timerText.text = "5";
+            _timerText.text = _secondsCount.ToString();
             StartCoroutine(StartTimer());
         }
 
-        public IEnumerator StartTimer()
+        private IEnumerator StartTimer()
         {
-            for (int i = 5; i >= 0; i--)
+            for (var i = _secondsCount; i >= 0; i--)
             {
                 yield return new WaitForSeconds(1);
                 _timerText.text = i.ToString();
             }
-            _signalBus.Fire<StartGameSignal>();
+            GameplayManager.Instance().SendStartGameSignal();
             gameObject.SetActive(false);
         }
     }

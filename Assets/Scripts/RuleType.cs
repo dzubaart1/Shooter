@@ -1,5 +1,5 @@
 ﻿public enum RuleType
 {
-    CountRule,
-    TimerRule
+    CountRule = 0,
+    TimerRule = 1,
 }
